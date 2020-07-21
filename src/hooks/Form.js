@@ -24,7 +24,7 @@ function Form () {
     reset,
     setValue
   } = useForm({
-    mode: 'onBlur',
+    mode: 'onChange',
     resolver: yupResolver(validationSchema),
     defaultValues
   })

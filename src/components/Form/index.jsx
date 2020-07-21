@@ -10,7 +10,8 @@ import {
   MenuItem,
   Checkbox,
   Chip,
-  Tooltip
+  Tooltip,
+  Typography
 } from '@material-ui/core'
 import { Controller } from 'react-hook-form'
 import {
@@ -20,6 +21,7 @@ import {
 import MomentUtils from '@date-io/moment'
 import { genderOptions, recommendationOptions } from '../../util/options'
 import Progress from './Progress'
+import MuiPhoneNumber from 'material-ui-phone-number'
 
 const useStyles = makeStyles(theme => ({
   margin: {
@@ -34,10 +36,10 @@ function Index ({
   control,
   setValue,
   progress,
-  values: { recommendation, dob }
+  values: { recommendation, dob, phone }
 }) {
   const classes = useStyles()
-  console.log('tcl', errors, progress)
+  console.log('tcl', errors)
   return (
     <>
       <Progress progress={progress} />
@@ -120,15 +122,20 @@ function Index ({
             />
           </Tooltip>
 
-          <TextField
-            id='6'
-            name='phone'
-            label='Contact Number'
-            inputRef={register}
-            error={Boolean(errors.phone)}
-            helperText={errors.phone && errors.phone.message}
-            className={classes.margin}
-          />
+          <FormControl className={classes.margin}>
+            <Typography variant='caption' color="textSecondary">Contact Number</Typography>
+            <Controller
+              as={(
+                <MuiPhoneNumber
+                  defaultCountry="au"
+                  value={phone}
+                  onChange={e => setValue('phone', e)}
+                />
+              )}
+              name="phone"
+              control={control}
+            />
+          </FormControl>
 
           <FormControl className={classes.margin}>
             <InputLabel>Gender</InputLabel>
