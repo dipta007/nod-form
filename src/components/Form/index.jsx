@@ -44,6 +44,7 @@ function Index ({
       <form onSubmit={onSubmit}>
         <Grid container direction='column'>
           <TextField
+            id='1'
             name='fname'
             label='First Name'
             inputRef={register}
@@ -53,6 +54,7 @@ function Index ({
           />
 
           <TextField
+            id='2'
             name='lname'
             label='Last Name'
             inputRef={register}
@@ -66,6 +68,7 @@ function Index ({
               as={
                 <MuiPickersUtilsProvider utils={MomentUtils}>
                   <KeyboardDatePicker
+                    id='3'
                     disableFuture
                     autoOk
                     openTo='year'
@@ -74,7 +77,7 @@ function Index ({
                     label='Date of Birth'
                     views={['year', 'month', 'date']}
                     value={dob}
-                    maxDateMessage="Date should not be on Future"
+                    maxDateMessage='Date can not be on Future'
                     onChange={e => setValue('dob', e)}
                   />
                 </MuiPickersUtilsProvider>
@@ -90,6 +93,7 @@ function Index ({
             aria-label='The customers primary contact email address'
           >
             <TextField
+              id='4'
               name='email'
               label='Email'
               inputRef={register}
@@ -105,6 +109,7 @@ function Index ({
             aria-label='The customers current residential address'
           >
             <TextField
+              id='5'
               name='address'
               label='Address'
               inputRef={register}
@@ -116,8 +121,9 @@ function Index ({
           </Tooltip>
 
           <TextField
+            id='6'
             name='phone'
-            label='Contact No'
+            label='Contact Number'
             inputRef={register}
             error={Boolean(errors.phone)}
             helperText={errors.phone && errors.phone.message}
@@ -128,7 +134,7 @@ function Index ({
             <InputLabel>Gender</InputLabel>
             <Controller
               as={
-                <Select>
+                <Select id='7'>
                   {genderOptions.map(ele => (
                     <MenuItem key={ele.value} value={ele.value}>
                       {ele.label}
@@ -151,6 +157,7 @@ function Index ({
               <Controller
                 as={
                   <Select
+                    id='8'
                     multiple
                     renderValue={selected => (
                       <div>
@@ -176,7 +183,13 @@ function Index ({
             </FormControl>
           </Tooltip>
 
-          <Button type='submit' size='medium' color='primary' variant='contained' disabled={progress !== 100}>
+          <Button
+            type='submit'
+            size='medium'
+            color='primary'
+            variant='contained'
+            disabled={progress !== 100}
+          >
             Submit
           </Button>
         </Grid>
