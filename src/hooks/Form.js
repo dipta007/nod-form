@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import FormComponent from '../components/Form'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers'
 import validationSchema from '../util/schema/formSchema'
 import { isValidNumber } from 'libphonenumber-js'
+import moment from 'moment'
 
 function Form () {
   const defaultValues = {
@@ -31,6 +32,8 @@ function Form () {
     resolver: yupResolver(validationSchema),
     defaultValues
   })
+  const [download, setDownload] = React.useState(false);
+  const csvLinkRef = useRef(null)
 
   const getProgress = values => {
     const keys = Object.keys(values)
@@ -52,6 +55,15 @@ function Form () {
 
   const onSubmit = data => {
     console.log('data', data)
+    const modifiedData = { ...data }
+    modifiedData.dob = moment(modifiedData.dob).format("YYYY-MM-DD")
+    setDownload([modifiedData])
+    console.log(modifiedData)
+
+    setTimeout(() => {
+      csvLinkRef.current.link.click();
+      setDownload(false)
+    })
     reset(defaultValues)
   }
 
@@ -89,6 +101,8 @@ function Form () {
       clearErrors={clearErrors}
       handlePhoneNo={handlePhoneNo}
       handleDateError={handleDateError}
+      download={download}
+      csvLinkRef={csvLinkRef}
     />
   )
 }

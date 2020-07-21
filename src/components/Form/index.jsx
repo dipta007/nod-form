@@ -19,6 +19,7 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
 } from '@material-ui/pickers'
+import { CSVLink } from 'react-csv'
 import MomentUtils from '@date-io/moment'
 import { genderOptions, recommendationOptions } from '../../util/options'
 import Progress from './Progress'
@@ -27,6 +28,9 @@ import MuiPhoneNumber from 'material-ui-phone-number'
 const useStyles = makeStyles(theme => ({
   margin: {
     marginBottom: theme.spacing(3)
+  },
+  noneDisplay: {
+    display: 'none'
   }
 }))
 
@@ -39,7 +43,9 @@ function Index ({
   progress,
   handleDateError,
   handlePhoneNo,
-  values: { recommendation, dob, phone }
+  values: { recommendation, dob, phone },
+  download,
+  csvLinkRef
 }) {
   const classes = useStyles()
   console.log('tcl', errors)
@@ -57,7 +63,6 @@ function Index ({
             helperText={errors.fname && errors.fname.message}
             className={classes.margin}
           />
-
           <TextField
             id='2'
             name='lname'
@@ -67,7 +72,6 @@ function Index ({
             helperText={errors.lname && errors.lname.message}
             className={classes.margin}
           />
-
           <FormControl className={classes.margin}>
             <Controller
               as={
@@ -92,7 +96,6 @@ function Index ({
               name='dob'
             />
           </FormControl>
-
           <Tooltip
             arrow
             title='The customers primary contact email address'
@@ -108,7 +111,6 @@ function Index ({
               className={classes.margin}
             />
           </Tooltip>
-
           <Tooltip
             arrow
             title='The customers current residential address'
@@ -125,7 +127,6 @@ function Index ({
               className={classes.margin}
             />
           </Tooltip>
-
           <FormControl className={classes.margin}>
             <Typography variant='caption' color='textSecondary'>
               Contact Number
@@ -146,7 +147,6 @@ function Index ({
               <FormHelperText error>{errors.phone.message}</FormHelperText>
             )}
           </FormControl>
-
           <FormControl className={classes.margin}>
             <InputLabel>Gender</InputLabel>
             <Controller
@@ -166,7 +166,6 @@ function Index ({
               <FormHelperText error>{errors.gender.message}</FormHelperText>
             )}
           </FormControl>
-
           <Tooltip
             arrow
             title='Select all of the areas that you are providing a recommendation for'
@@ -208,7 +207,6 @@ function Index ({
               )}
             </FormControl>
           </Tooltip>
-
           <Button
             type='submit'
             size='medium'
@@ -218,6 +216,18 @@ function Index ({
           >
             Submit
           </Button>
+          {download && (
+            <CSVLink
+              data={download}
+              target='_blank'
+              filename='submission.csv'
+              separator=','
+              ref={csvLinkRef}
+              className={classes.noneDisplay}
+            >
+              Submit
+            </CSVLink>
+          )}
         </Grid>
       </form>
     </>

@@ -16,6 +16,7 @@
     "material-ui-phone-number": "^2.2.6",
     "moment": "^2.27.0",
     "react": "^16.13.1",
+    "react-csv": "^2.0.3",
     "react-dom": "^16.13.1",
     "react-hook-form": "^6.0.8",
     "react-scripts": "3.4.1",
