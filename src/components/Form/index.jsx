@@ -37,8 +37,8 @@ function Index ({
   control,
   setValue,
   progress,
-  setError,
-  clearErrors,
+  handleDateError,
+  handlePhoneNo,
   values: { recommendation, dob, phone }
 }) {
   const classes = useStyles()
@@ -84,14 +84,7 @@ function Index ({
                     value={dob}
                     maxDateMessage='Date can not be on Future'
                     onChange={e => setValue('dob', e)}
-                    onError={e => {
-                      if (!!e) {
-                        if (!errors.dob)
-                          setError('dob', { type: 'manual', message: e })
-                      } else {
-                        if (errors.dob) clearErrors('dob')
-                      }
-                    }}
+                    onError={e => handleDateError(e)}
                   />
                 </MuiPickersUtilsProvider>
               }
@@ -138,16 +131,20 @@ function Index ({
               Contact Number
             </Typography>
             <Controller
-              as={
+              render={() => (
                 <MuiPhoneNumber
                   defaultCountry='au'
                   value={phone}
-                  onChange={e => setValue('phone', e)}
+                  onChange={e => handlePhoneNo(e)}
                 />
-              }
+              )}
+              onChange={e => console.log('change phone no', e)}
               name='phone'
               control={control}
             />
+            {errors.phone && errors.phone.message && (
+              <FormHelperText error>{errors.phone.message}</FormHelperText>
+            )}
           </FormControl>
 
           <FormControl className={classes.margin}>

@@ -3,6 +3,7 @@ import FormComponent from '../components/Form'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers'
 import validationSchema from '../util/schema/formSchema'
+import { isValidNumber } from 'libphonenumber-js'
 
 function Form () {
   const defaultValues = {
@@ -24,7 +25,7 @@ function Form () {
     reset,
     setValue,
     setError,
-    clearErrors,
+    clearErrors
   } = useForm({
     mode: 'onChange',
     resolver: yupResolver(validationSchema),
@@ -42,12 +43,13 @@ function Form () {
         values[key] && typeof values[key] === 'object'
           ? !!Object.keys(values[key]).length
           : !!values[key]
-      const error = !errors[key];
+      const error = !errors[key]
       completed += isItCompleted && error
     }
 
     return Math.ceil((completed * 100.0) / total)
   }
+
   const onSubmit = data => {
     console.log('data', data)
     reset(defaultValues)
@@ -55,6 +57,24 @@ function Form () {
 
   const values = watch()
   const progress = getProgress(values)
+
+  const handlePhoneNo = phone => {
+    setValue('phone', phone)
+    if (!isValidNumber(phone)) {
+      if (!errors.phone)
+        setError('phone', { type: 'manual', message: 'Invalid Phone Number' })
+    } else {
+      if (errors.phone) clearErrors('phone')
+    }
+  }
+
+  const handleDateError = err => {
+    if (!!err) {
+      if (!errors.dob) setError('dob', { type: 'manual', message: err })
+    } else {
+      if (errors.dob) clearErrors('dob')
+    }
+  }
 
   return (
     <FormComponent
@@ -67,6 +87,8 @@ function Form () {
       progress={progress}
       setError={setError}
       clearErrors={clearErrors}
+      handlePhoneNo={handlePhoneNo}
+      handleDateError={handleDateError}
     />
   )
 }
