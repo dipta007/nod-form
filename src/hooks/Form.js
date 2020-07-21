@@ -3,13 +3,12 @@ import FormComponent from '../components/Form'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers'
 import validationSchema from '../util/schema/formSchema'
-import moment from 'moment'
 
 function Form () {
   const defaultValues = {
     fname: '',
     lname: '',
-    dob: moment(new Date()),
+    dob: null,
     email: '',
     address: '',
     phone: '',
@@ -25,6 +24,7 @@ function Form () {
     reset,
     setValue
   } = useForm({
+    mode: 'onBlur',
     resolver: yupResolver(validationSchema),
     defaultValues
   })
