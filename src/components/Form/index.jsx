@@ -11,7 +11,8 @@ import {
   Checkbox,
   Chip,
   Tooltip,
-  Typography
+  Typography,
+  FormHelperText
 } from '@material-ui/core'
 import { Controller } from 'react-hook-form'
 import {
@@ -123,16 +124,18 @@ function Index ({
           </Tooltip>
 
           <FormControl className={classes.margin}>
-            <Typography variant='caption' color="textSecondary">Contact Number</Typography>
+            <Typography variant='caption' color='textSecondary'>
+              Contact Number
+            </Typography>
             <Controller
-              as={(
+              as={
                 <MuiPhoneNumber
-                  defaultCountry="au"
+                  defaultCountry='au'
                   value={phone}
                   onChange={e => setValue('phone', e)}
                 />
-              )}
-              name="phone"
+              }
+              name='phone'
               control={control}
             />
           </FormControl>
@@ -141,7 +144,7 @@ function Index ({
             <InputLabel>Gender</InputLabel>
             <Controller
               as={
-                <Select id='7'>
+                <Select id='7' error={Boolean(errors.gender)}>
                   {genderOptions.map(ele => (
                     <MenuItem key={ele.value} value={ele.value}>
                       {ele.label}
@@ -152,6 +155,9 @@ function Index ({
               name='gender'
               control={control}
             />
+            {errors.gender && errors.gender.message && (
+              <FormHelperText error>{errors.gender.message}</FormHelperText>
+            )}
           </FormControl>
 
           <Tooltip
@@ -164,6 +170,7 @@ function Index ({
               <Controller
                 as={
                   <Select
+                    error={Boolean(errors.recommendation)}
                     id='8'
                     multiple
                     renderValue={selected => (
@@ -187,6 +194,11 @@ function Index ({
                 name='recommendation'
                 control={control}
               />
+              {errors.recommendation && errors.recommendation.message && (
+                <FormHelperText error>
+                  {errors.recommendation.message}
+                </FormHelperText>
+              )}
             </FormControl>
           </Tooltip>
 
