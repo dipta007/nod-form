@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/nod-form/precache-manifest.1de78a8b9d1d4dbb0d0274d6e2d35b5d.js"
+  "/nod-form/precache-manifest.ff787afa2c790946f1e1bf5c8d8ce073.js"
 );
 
 self.addEventListener('message', (event) => {
