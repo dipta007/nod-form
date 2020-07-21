@@ -37,6 +37,8 @@ function Index ({
   control,
   setValue,
   progress,
+  setError,
+  clearErrors,
   values: { recommendation, dob, phone }
 }) {
   const classes = useStyles()
@@ -82,6 +84,14 @@ function Index ({
                     value={dob}
                     maxDateMessage='Date can not be on Future'
                     onChange={e => setValue('dob', e)}
+                    onError={e => {
+                      if (!!e) {
+                        if (!errors.dob)
+                          setError('dob', { type: 'manual', message: e })
+                      } else {
+                        if (errors.dob) clearErrors('dob')
+                      }
+                    }}
                   />
                 </MuiPickersUtilsProvider>
               }

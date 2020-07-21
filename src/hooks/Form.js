@@ -22,7 +22,9 @@ function Form () {
     errors,
     control,
     reset,
-    setValue
+    setValue,
+    setError,
+    clearErrors,
   } = useForm({
     mode: 'onChange',
     resolver: yupResolver(validationSchema),
@@ -63,6 +65,8 @@ function Form () {
       values={values}
       setValue={setValue}
       progress={progress}
+      setError={setError}
+      clearErrors={clearErrors}
     />
   )
 }
