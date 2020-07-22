@@ -115,9 +115,11 @@ function Index ({
             options={recommendationOptions}
             multiple
             value={recommendation}
+            tooltip="Select all of the areas that you are providing a recommendation for"
           />
 
           <Button
+            id="submit"
             type='submit'
             size='medium'
             color='primary'

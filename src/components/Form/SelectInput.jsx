@@ -18,7 +18,7 @@ function SelectInput ({
   label,
   error,
   control,
-  options,
+  options = [],
   value,
   multiple = false,
   tooltip = ''
@@ -68,11 +68,7 @@ function SelectInput ({
   let renderedElement = element
   if (tooltip) {
     renderedElement = (
-      <Tooltip
-        arrow
-        title='Select all of the areas that you are providing a recommendation for'
-        aria-label='Select all of the areas that you are providing a recommendation for'
-      >
+      <Tooltip arrow title={tooltip} aria-label={tooltip}>
         {renderedElement}
       </Tooltip>
     )
