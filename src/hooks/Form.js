@@ -54,11 +54,9 @@ function Form () {
   }
 
   const onSubmit = data => {
-    console.log('data', data)
     const modifiedData = { ...data }
     modifiedData.dob = moment(modifiedData.dob).format("YYYY-MM-DD")
     setDownload([modifiedData])
-    console.log(modifiedData)
 
     setTimeout(() => {
       csvLinkRef.current.link.click();

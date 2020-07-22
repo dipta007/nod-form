@@ -32,7 +32,6 @@ function Index ({
   csvLinkRef
 }) {
   const classes = useStyles()
-  console.log('tcl', errors)
   return (
     <>
       <Progress progress={progress} />
