@@ -17,3 +17,8 @@ Run `npm run test` or `yarn test`
 
 Run `npm run start` or `yarn start`  
 It will be live on `localhost:3000`
+
+## Build
+
+Run `npm run build` or `yarn build`  
+The build will be available on [Build Folder](./build)
